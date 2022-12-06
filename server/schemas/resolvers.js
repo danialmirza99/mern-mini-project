@@ -3,10 +3,13 @@ const { Tech, Matchup } = require('../models');
 const resolvers = {
   Query: {
     getAllMatchup: async () => {
-      return Matchup.find().populate('Matchup');
+      return await Matchup.find().populate('Matchup').populate({
+        path: 'Matchup',
+        populate: 'Matchup'
+      });
     },
     getMatchup: async (parent,  args ) => {
-      return User.findOne( args._id ).populate('Matchup');
+      return Matchup.findOne( args._id ).populate('Matchup');
     },
   },
 };
